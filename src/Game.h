@@ -1,7 +1,7 @@
 #pragma once
-#include "..\Application\Application.h"
-#include "..\Graphics\Graphics.h"
-#include "Map\Map.h"
+#include "Application.h"
+#include "Graphics\Graphics.h"
+#include "Map.h"
 
 class Game : public Application
 {

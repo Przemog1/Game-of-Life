@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\..\Graphics\RGBTexture\RGBTexture.h"
+#include "Graphics\RGBTexture\RGBTexture.h"
 
 class Cell
 {

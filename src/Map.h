@@ -1,8 +1,8 @@
 #pragma once
 #pragma once
-#include "..\..\Graphics\Graphics.h"
-#include "..\..\Graphics\RGBTexture\RGBTexture.h"
-#include "..\Cell\Cell.h"
+#include "Graphics\Graphics.h"
+#include "Graphics\RGBTexture\RGBTexture.h"
+#include "Cell.h"
 
 class Map
 {

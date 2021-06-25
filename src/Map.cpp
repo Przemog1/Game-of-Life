@@ -1,8 +1,8 @@
 #include "Map.h"
-#include "..\..\Graphics\Graphics.h"
+#include "Graphics\Graphics.h"
 //#include <memory>
 
-#include<time.h>
+#include <time.h>
 #include <cstdlib>
 #include <iostream>
 

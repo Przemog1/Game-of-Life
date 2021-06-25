@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "..\Graphics\Graphics.h"
+#include "Graphics\Graphics.h"
 #include <iostream>
 
 void Game::update()
@@ -23,5 +23,5 @@ Game::Game(const std::string& title, unsigned int width, unsigned int height)
 
 Application* createApplication()
 {
-	return new Game("Hello!", 960, 540);
+	return new Game("Hello!", 1920, 1080);
 }

@@ -1,5 +1,5 @@
-#include "Application/Application.h"
-#include "Game\Game.h"
+#include "Application.h"
+#include "Game.h"
 
 extern Application* createApplication();
 
