@@ -1,11 +1,14 @@
 #include "Game.h"
 #include "Graphics\Graphics.h"
 #include <iostream>
+#include "SingleCoreGenerationCalculator.h"
 
-void Game::update()
+Game::Game(const std::string& title, unsigned int windowWidth, unsigned int windowHeight)
+	:Application(title, windowWidth, windowHeight),
+	map(windowWidth, windowHeight),
+	graphics(*Graphics::getGraphics())
 {
-	map.calculateNextGeneration();
-	map.draw();
+	generationCalculator = std::make_unique<SingleCoreGenerationCalculator>();
 }
 
 void Game::initialize()
@@ -13,15 +16,8 @@ void Game::initialize()
 	map.randomizeCells();
 }
 
-Game::Game(const std::string& title, unsigned int width, unsigned int height)
-	:Application(title, width, height), 
-	graphics(*Graphics::getGraphics()),
-	map(width, height)
+void Game::update()
 {
-
-}
-
-Application* createApplication()
-{
-	return new Game("Hello!", 1920, 1080);
+	generationCalculator->calculateNextGeneration(map);
+	map.draw();
 }

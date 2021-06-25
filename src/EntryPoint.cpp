@@ -5,7 +5,7 @@ extern Application* createApplication();
 
 int main()
 {
-	Application* app = createApplication();
+	Application* app = new Game("Hello", 1920, 1080);
 	app->run();
 	delete app;
 }

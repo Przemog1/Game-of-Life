@@ -19,14 +19,17 @@
     <ClCompile Include="src\Graphics\Graphics.cpp" />
     <ClCompile Include="src\Graphics\RGBTexture\RGBTexture.cpp" />
     <ClCompile Include="src\Map.cpp" />
+    <ClCompile Include="src\SingleCoreGenerationCalculator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Cell.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\IGenerationCalculator.h" />
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\RGBTexture\RGBTexture.h" />
     <ClInclude Include="src\Map.h" />
+    <ClInclude Include="src\SingleCoreGenerationCalculator.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

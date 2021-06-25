@@ -12,10 +12,12 @@ public:
 	void draw();
 	void randomizeCells();
 
-	void calculateNextGeneration();
+	inline unsigned int getMapHeight() { return mapHeight; }
+	inline unsigned int getMapWidth() { return mapWidth; }
+	inline Cell** getFrontBuffer() { return frontBufferCellArray; }
+	inline Cell** getBackBuffer() { return backBufferCellArray; }
 
 private:
-	void singleCoreCalculation();
 	void updateTexture();
 
 private:
