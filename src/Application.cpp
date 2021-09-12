@@ -47,7 +47,7 @@ void Application::run()
 {
 	this->initialize();
 
-	glfwSwapInterval(1);
+	glfwSwapInterval(0);
 	glClearColor(0.2f, 0.4f, 0.6f, 1.0f);
 	while (!glfwWindowShouldClose(window))
 	{

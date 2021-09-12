@@ -65,8 +65,6 @@ void Graphics::initializeShader()
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vcs);
 	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fcs);
 
-	std::cout << vcs << fcs;
-
 	glAttachShader(shaderProgramID, vertexShader);
 	glAttachShader(shaderProgramID, fragmentShader);
 

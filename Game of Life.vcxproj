@@ -19,6 +19,7 @@
     <ClCompile Include="src\Graphics\Graphics.cpp" />
     <ClCompile Include="src\Graphics\RGBTexture\RGBTexture.cpp" />
     <ClCompile Include="src\Map.cpp" />
+    <ClCompile Include="src\MTGenerationCalculator.cpp" />
     <ClCompile Include="src\SingleCoreGenerationCalculator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -29,6 +30,7 @@
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\RGBTexture\RGBTexture.h" />
     <ClInclude Include="src\Map.h" />
+    <ClInclude Include="src\MTGenerationCalculator.h" />
     <ClInclude Include="src\SingleCoreGenerationCalculator.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -71,11 +73,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Dependencies/GLFW32/include;$(SolutionDir)/Dependencies/GLAD/include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Dependencies/GLFW/include;$(SolutionDir)/Dependencies/GLAD/include;</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)/Dependencies/GLFW/lib-vc2019;</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);glfw3.lib;opengl32.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -88,6 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/Dependencies/GLFW/include;$(SolutionDir)/Dependencies/GLAD/include;</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

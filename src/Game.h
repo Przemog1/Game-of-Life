@@ -9,7 +9,15 @@
 class Game : public Application
 {
 public:
-	Game(const std::string& title, unsigned int width, unsigned int height);
+	enum class EGenerationCalculatorType
+	{
+		SINGLE_THREAD,
+		MULTIPLE_THREADS
+	};
+
+public:
+	Game(const std::string& title, unsigned int width, unsigned int height, EGenerationCalculatorType egct);
+
 private:
 	void initialize() override;
 	void update() override;
