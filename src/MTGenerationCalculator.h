@@ -35,13 +35,9 @@ private:
 	std::mutex allThreadsAreWaitingLock;
 	std::condition_variable dataReadyToProcess;
 	std::mutex dataReadyToProcessLock;
-	std::condition_variable allThreadsFinished;
-	std::mutex  allThreadsFinishedLock;
 
 	std::uint16_t currentStateBitflag;     // 0 - calculating, 1 - waiting
-	std::uint16_t currentWorkStateBitflag; // 0 - calculating, 1 - finished
 	std::uint16_t allThreadsWaitingBitflag;
-	std::uint16_t allThreadsFinishedBitflag;
 	static constexpr std::uint16_t allThreadsCalculatingBitflag = 0u;
 
 	bool dataReadyToProcessFlag;
@@ -55,7 +51,7 @@ private:
 	inline void waitInMainThreadForAllThreadsToBeReady()
 	{
 		std::unique_lock lck(allThreadsAreWaitingLock);
-		allThreadsAreWaiting.wait(lck, [&]() { return currentStateBitflag == allThreadsWaitingBitflag; }); // deadlock?
+		allThreadsAreWaiting.wait(lck, [&]() { return currentStateBitflag == allThreadsWaitingBitflag; });
 	}
 
 	// actual calculation

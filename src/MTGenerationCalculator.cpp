@@ -1,10 +1,8 @@
 #include "MTGenerationCalculator.h"
 #include <algorithm>
 
-#include <iostream>
-
 MTGenerationCalculator::MTGenerationCalculator(unsigned int numberOfThreads)
-	: shouldCloseFlag(false), dataReadyToProcessFlag(false), currentStateBitflag(0u), currentWorkStateBitflag(0u)
+	: shouldCloseFlag(false), dataReadyToProcessFlag(false), currentStateBitflag(0u)
 {
 	if (numberOfThreads == 0)
 		numberOfThreads = 1;
@@ -15,7 +13,6 @@ MTGenerationCalculator::MTGenerationCalculator(unsigned int numberOfThreads)
 
 	for (std::uint16_t i = 0u; i < threadCnt; i++)
 		allThreadsWaitingBitflag |= (0x1u << i);
-	allThreadsFinishedBitflag = allThreadsWaitingBitflag;
 
 	// start all threads
 	threads.reserve(numberOfThreads);
@@ -48,7 +45,6 @@ void MTGenerationCalculator::calculateNextGeneration(Map& map)
 	{
 		std::unique_lock lck(dataReadyToProcessLock);
 		currentStateBitflag = allThreadsCalculatingBitflag;
-		currentWorkStateBitflag = allThreadsCalculatingBitflag;
 	}
 	dataReadyToProcess.notify_all();
 
@@ -67,23 +63,13 @@ void MTGenerationCalculator::concurrentFunction(unsigned int threadSystemID)
 		currentStateBitflag |= thisThreadStateBitflag;
 		if (currentStateBitflag == allThreadsWaitingBitflag)
 			allThreadsAreWaiting.notify_one();
-		dataReadyToProcess.wait(lckRdy, [&]() { return currentStateBitflag == allThreadsCalculatingBitflag; });
+		dataReadyToProcess.wait(lckRdy, [&]() { return !(currentStateBitflag & thisThreadStateBitflag); });
 		lckRdy.unlock();
 
 		if (shouldCloseFlag)
-		{
-			std::cout << threadSystemID << std::endl;
 			return;
-		}
 
 		calculateNextGeneration_impl(threadSystemID);
-
-		// TODO: make sure if 2 condition variables are neccessary
-		std::unique_lock lckFin(allThreadsFinishedLock);
-		currentWorkStateBitflag |= thisThreadStateBitflag;
-		if (currentWorkStateBitflag == allThreadsFinishedBitflag)
-			allThreadsFinished.notify_all();
-		allThreadsFinished.wait(lckFin, [&]() { return currentWorkStateBitflag == allThreadsFinishedBitflag; });
 	}
 }
 
@@ -97,9 +83,6 @@ void MTGenerationCalculator::calculateNextGeneration_impl(unsigned int threadSys
 	const unsigned int rowsToProcessPerThreadCnt = (mapHeight - 2u) / (threadCnt + 1u);
 	const unsigned int firstRowToProcessByThisThread = threadSystemID * rowsToProcessPerThreadCnt + 1u;
 	const unsigned int lastRowToProcessByThisThread = threadSystemID == threadCnt ? firstRowToProcessByThisThread + mapHeight - (threadSystemID * rowsToProcessPerThreadCnt) - 3u : firstRowToProcessByThisThread + rowsToProcessPerThreadCnt;
-
-	/*if (threadSystemID == 3u)
-		__debugbreak();*/
 
 	for (unsigned int i = firstRowToProcessByThisThread; i <= lastRowToProcessByThisThread; i++)
 	{
